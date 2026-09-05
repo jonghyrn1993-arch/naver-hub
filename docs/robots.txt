@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://EXAMPLE.github.io/naver-hub/sitemap.xml
+Sitemap: https://jonghyrn1993-arch.github.io/naver-hub/sitemap.xml
