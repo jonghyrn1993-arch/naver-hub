@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+peek.py
+findcat.py
