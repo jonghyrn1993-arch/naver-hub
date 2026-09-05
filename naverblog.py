@@ -32,8 +32,12 @@ def get(url, timeout=25):
 
 
 def fetch_post_list(blog_id=BLOG_ID, max_pages=300, verbose=True):
-    """블로그의 전체 글 목록. logNo/제목/카테고리/공개여부/검색허용여부를 준다."""
-    posts, page = [], 1
+    """블로그의 전체 글 목록. logNo/제목/카테고리/공개여부/검색허용여부를 준다.
+
+    네이버는 마지막 페이지를 넘어가도 빈 목록 대신 마지막 페이지를 계속 되돌려준다.
+    그래서 새 글이 하나도 없는 페이지가 나오면 거기서 끊는다.
+    """
+    posts, seen, page = [], set(), 1
     while page <= max_pages:
         url = ("https://blog.naver.com/PostTitleListAsync.naver"
                "?blogId=%s&viewdate=&currentPage=%d"
@@ -42,12 +46,24 @@ def fetch_post_list(blog_id=BLOG_ID, max_pages=300, verbose=True):
         chunk = data.get("postList") or []
         if not chunk:
             break
+
+        fresh = []
         for p in chunk:
-            p["title"] = urllib.parse.unquote_plus(p.get("title", ""))
+            if p["logNo"] in seen:
+                continue
+            seen.add(p["logNo"])
+            p["title"] = html.unescape(urllib.parse.unquote_plus(p.get("title", "")))
             p["url"] = "https://blog.naver.com/%s/%s" % (blog_id, p["logNo"])
-        posts.extend(chunk)
+            fresh.append(p)
+
+        if not fresh:                       # 같은 페이지가 반복되기 시작했다
+            if verbose:
+                sys.stderr.write("  page %d: 새 글 없음 -> 끝\n" % page)
+            break
+
+        posts.extend(fresh)
         if verbose:
-            sys.stderr.write("  page %d: +%d (누적 %d)\n" % (page, len(chunk), len(posts)))
+            sys.stderr.write("  page %d: +%d (누적 %d)\n" % (page, len(fresh), len(posts)))
         page += 1
         time.sleep(0.4)
     return posts

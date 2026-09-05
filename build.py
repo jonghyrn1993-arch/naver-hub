@@ -123,7 +123,7 @@ def load_posts(incremental):
     fresh = fetch_post_list(max_pages=5)
     added = [p for p in fresh if p["logNo"] not in known]
     sys.stderr.write("  증분 갱신: 새 글 %d편 (캐시 %d편)\n" % (len(added), len(cached)))
-    if len(added) >= 5 * 29:                 # 앞 5페이지가 전부 새 글이면 전수로 다시
+    if len(added) >= 140:                    # 앞 5페이지가 거의 다 새 글이면 전수로 다시
         sys.stderr.write("  새 글이 너무 많다. 전수 수집으로 전환한다.\n")
         return fetch_post_list()
 
