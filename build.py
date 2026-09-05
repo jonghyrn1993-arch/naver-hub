@@ -35,6 +35,9 @@ DEFAULT_CONFIG = {
                   "네이버 블로그에 올린 글 전체를 한 곳에서 찾아볼 수 있게 정리한 목록이다."),
     "author": "현STJ",
     "google_verification": "",
+    # 서치콘솔이 준 확인용 파일명. 빌드 때마다 docs/ 를 새로 만들기 때문에
+    # 여기 적어두면 매번 같이 생성된다. 지우면 소유권 확인이 풀린다.
+    "google_verification_file": "",
     "naver_blog_url": "https://blog.naver.com/" + BLOG_ID,
 }
 
@@ -397,6 +400,12 @@ def build(incremental=False):
 
     with open(os.path.join(OUT, ".nojekyll"), "w", encoding="utf-8") as f:
         f.write("")
+
+    vfile = cfg.get("google_verification_file", "").strip()
+    if vfile:
+        with open(os.path.join(OUT, vfile), "w", encoding="utf-8") as f:
+            f.write("google-site-verification: %s" % vfile)
+        sys.stderr.write("서치콘솔 확인 파일 생성: %s\n" % vfile)
 
     sys.stderr.write("\n빌드 완료: %d편 -> 페이지 %d장\n" % (len(posts), len(urls)))
     sys.stderr.write("출력: %s\n" % OUT)
