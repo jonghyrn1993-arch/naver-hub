@@ -489,7 +489,7 @@
   "categoryNo": "65",
   "parentCategoryNo": "56",
   "sourceCode": "0",
-  "commentCount": "2",
+  "commentCount": "3",
   "readCount": "",
   "addDate": "2026. 8. 10.",
   "openType": "2",
@@ -17680,5 +17680,26 @@
   "isBlockTmpForced": 0,
   "postProductStatus": "",
   "url": "https://blog.naver.com/100755/224402555526"
+ },
+ {
+  "sellerServiceStatus": "",
+  "logNo": "224404510859",
+  "title": "강남역 전설의 우대갈비, 룸에서 조용히 먹는 접대용 갈비 맛집",
+  "categoryNo": "65",
+  "parentCategoryNo": "56",
+  "sourceCode": "0",
+  "commentCount": "2",
+  "readCount": "",
+  "addDate": "23시간 전",
+  "openType": "2",
+  "searchYn": "true",
+  "greenReviewBannerYn": false,
+  "memologMovingYn": "0",
+  "isPostSelectable": "0",
+  "isPostNotOpen": "0",
+  "isPostBlocked": 0,
+  "isBlockTmpForced": 0,
+  "postProductStatus": "",
+  "url": "https://blog.naver.com/100755/224404510859"
  }
 ]
